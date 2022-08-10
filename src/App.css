@@ -1,0 +1,23 @@
+table th, table td { white-space: nowrap; }
+
+
+.yaml{
+    padding:20px;
+    border: 1px solid black;
+    margin: 20px;
+}
+
+.slackReminders{
+    margin-top:20px;
+}
+.slackReminders div{
+    margin: 10px;
+}
+
+.students-yaml{
+    white-space: pre-wrap;
+}
+
+.row {
+    margin-bottom: 10px;
+}
