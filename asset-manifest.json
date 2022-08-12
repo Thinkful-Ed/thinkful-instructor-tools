@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/thinkful-instructor-tools/static/css/main.2de90f08.chunk.css",
+    "main.js": "/thinkful-instructor-tools/static/js/main.44eb306e.chunk.js",
+    "main.js.map": "/thinkful-instructor-tools/static/js/main.44eb306e.chunk.js.map",
+    "runtime-main.js": "/thinkful-instructor-tools/static/js/runtime-main.fb42a952.js",
+    "runtime-main.js.map": "/thinkful-instructor-tools/static/js/runtime-main.fb42a952.js.map",
+    "static/css/2.fbd8b21e.chunk.css": "/thinkful-instructor-tools/static/css/2.fbd8b21e.chunk.css",
+    "static/js/2.342eb6b4.chunk.js": "/thinkful-instructor-tools/static/js/2.342eb6b4.chunk.js",
+    "static/js/2.342eb6b4.chunk.js.map": "/thinkful-instructor-tools/static/js/2.342eb6b4.chunk.js.map",
+    "index.html": "/thinkful-instructor-tools/index.html",
+    "precache-manifest.dcc634b2b5d7eba2e5283300b29249c6.js": "/thinkful-instructor-tools/precache-manifest.dcc634b2b5d7eba2e5283300b29249c6.js",
+    "service-worker.js": "/thinkful-instructor-tools/service-worker.js",
+    "static/css/2.fbd8b21e.chunk.css.map": "/thinkful-instructor-tools/static/css/2.fbd8b21e.chunk.css.map",
+    "static/css/main.2de90f08.chunk.css.map": "/thinkful-instructor-tools/static/css/main.2de90f08.chunk.css.map",
+    "static/js/2.342eb6b4.chunk.js.LICENSE.txt": "/thinkful-instructor-tools/static/js/2.342eb6b4.chunk.js.LICENSE.txt",
+    "static/media/avoid-example.png": "/thinkful-instructor-tools/static/media/avoid-example.171b1e45.png",
+    "static/media/view_a_ruberic(admins).mp4": "/thinkful-instructor-tools/static/media/view_a_ruberic(admins).e21a7e92.mp4"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fb42a952.js",
+    "static/css/2.fbd8b21e.chunk.css",
+    "static/js/2.342eb6b4.chunk.js",
+    "static/css/main.2de90f08.chunk.css",
+    "static/js/main.44eb306e.chunk.js"
+  ]
+}
