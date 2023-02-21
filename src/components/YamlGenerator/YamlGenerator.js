@@ -25,12 +25,13 @@ class YamlGenerator extends React.Component {
     rewriteInputPath: true,
     slackHandles: "",
     organization: "",
+    githubHul: "",
   };
 
   componentDidMount() {
     this.getItems();
     this.setState({
-      workshopUrl: `https://rebrand.ly/${this.state.cohortNum}workshop`,
+      workshopUrl: `https://rebrand.ly/${this.state.cohortNum}-workshop`,
     });
   }
   getItems() {
@@ -47,7 +48,7 @@ class YamlGenerator extends React.Component {
       .catch((err) => console.log(err));
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
   onChange = (e) => {
     console.log(e);
     if (e.target.name === "rewriteInputPath") {
@@ -89,11 +90,11 @@ class YamlGenerator extends React.Component {
       }
     }
     console.log(output);
-    let date= new Date(this.state.startDate);
+    let date = new Date(this.state.startDate);
     let [month, day, year] = new Date(this.state.startDate).toLocaleDateString("en-US").split("/");
-    let formattedDate = `${month-10? '0'+month: month}-${parseInt(day)+1}-${year.substring(2)}`;
+    let formattedDate = `${month - 10 ? '0' + month : month}-${parseInt(day) + 1}-${year.substring(2)}`;
     console.log(formattedDate)
-    this.setState({ students: output, startDate:formattedDate });
+    this.setState({ students: output, startDate: formattedDate });
   };
 
   checkIfDups(firstName, list) {
@@ -176,6 +177,28 @@ class YamlGenerator extends React.Component {
               value={this.state.workshopUrl}
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="discordServerUrl">Discord URL</Label>
+            <Input
+              type="url"
+              name="discordServerUrl"
+              id="discordServerUrl"
+              onChange={this.onChange}
+              value={this.state.discordServerUrl}
+            />
+          </FormGroup>
+          {this.state.courseCode === 'dev-301' && (
+            <FormGroup>
+              <Label for="githubUrl">GitHub Repo URL (EI Only)</Label>
+              <Input
+                type="url"
+                name="githubUrl"
+                id="githubUrl"
+                onChange={this.onChange}
+                value={this.state.githubUrl}
+              />
+            </FormGroup>
+          )}
           <FormGroup>
             <Label for="timezone">Time Zone</Label>
             <select
@@ -276,6 +299,8 @@ class YamlGenerator extends React.Component {
               <div>oddStudent: solo</div>
               <div>startDate: {this.state.startDate}</div>
               <div>workshopUrl: {this.state.workshopUrl}</div>
+              <div>discordServerUrl: {this.state.discordServerUrl}</div>
+              {this.state.courseCode === 'dev-301' && (<div>githubUrl: {this.state.githubUrl}</div>)}
               <div>timezone: ET</div>
               <div>breakWeeks:</div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;- {this.state.breakWeek1}</div>

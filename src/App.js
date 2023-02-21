@@ -29,7 +29,7 @@ function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-            {/* <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link" activeClassName="active" to="/roster">Roster</Link>
   </li>*/}
               <li className="nav-item">
@@ -44,17 +44,17 @@ function App() {
               <li className="nav-item">
                 <Link className="nav-link" activeClassName="active" to="/teamgenerator">Team Generator</Link>
               </li>
-             
+              {/*              
               <li className="nav-item">
                 <Link className="nav-link" activeClassName="active" to="/resources">Resources</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-        
+
         <Switch>
           <Route path="/yaml">
             <YamlGenerator />
@@ -68,11 +68,11 @@ function App() {
           <Route path="/resources">
             <Resources />
           </Route>
-         {/**
+          {/**
           * <Route path="/roster">
             <Roster />
           </Route>
-          */} 
+          */}
           <Route path="/ticket">
             <TicketCounter />
           </Route>
@@ -82,7 +82,7 @@ function App() {
           <Route exact path="/">
             <YamlGenerator />
           </Route>
-        
+
         </Switch>
       </div>
     </HashRouter>
