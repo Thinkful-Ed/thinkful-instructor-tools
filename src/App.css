@@ -7,6 +7,12 @@ table th, table td { white-space: nowrap; }
     margin: 20px;
 }
 
+.segment {
+    padding:20px;
+    border: 1px solid black;
+    margin: 20px; 
+}
+
 .slackReminders{
     margin-top:20px;
 }

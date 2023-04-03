@@ -9,48 +9,27 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import apiUrl from "../../env";
 import avoidExample from "../../resources/avoid-example.png";
+import { DateTime } from 'luxon';
+
 class YamlGenerator extends React.Component {
   state = {
     students: [],
     courseCode: "dev-301",
     cohortNum: 58,
-    startDate: "",
-    workshopUrl: "https://rebrand.ly/${workshop",
-    timeZone: "EST",
+    startDate: new Date().toISOString(),
+    workshopUrl: "https://rebrand.ly/WORKSHOP",
+    timezone: "EST",
     breakWeek1: 5,
     breakWeek2: 13,
-    studentList: ` `,
-    rewriteInputPath: true,
+    studentList: "",
     slackHandles: "",
-    organization: "",
-    githubHul: "",
+    githubUrl: "https://github.com/our-cool-cohort",
   };
-
-  componentDidMount() {
-    this.getItems();
-    this.setState({
-      workshopUrl: `https://rebrand.ly/${this.state.cohortNum}-workshop`,
-    });
-  }
-  getItems() {
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((students) => {
-        let slackHandles = students.map((student) => student.slack);
-        this.setState({ slackHandles: slackHandles.join(" ") });
-        /*  students.sort(function(a, b) { 
-                    return a.id - b.id ;
-                  });
-                this.setState({ students })*/
-      })
-      .catch((err) => console.log(err));
-  }
 
   componentWillUnmount() { }
   onChange = (e) => {
-    console.log(e);
+    console.log(e.target.value);
     if (e.target.name === "rewriteInputPath") {
       this.setState({ [e.target.name]: e.target.checked });
     } else {
@@ -91,7 +70,7 @@ class YamlGenerator extends React.Component {
     }
     console.log(output);
     let date = new Date(this.state.startDate);
-    let [month, day, year] = new Date(this.state.startDate).toLocaleDateString("en-US").split("/");
+    let [month, day, year] = date.toLocaleDateString("en-US").split("/");
     let formattedDate = `${month - 10 ? '0' + month : month}-${parseInt(day) + 1}-${year.substring(2)}`;
     console.log(formattedDate)
     this.setState({ students: output, startDate: formattedDate });
@@ -111,7 +90,24 @@ class YamlGenerator extends React.Component {
     return counter > 1;
   }
 
+  courseCodes = {
+    'dev-301': {
+      name: 'Engineering',
+      shortCode: 'ei'
+    },
+    'data_analytics-301': {
+      name: 'Data Analytics',
+      shortCode: 'dai'
+    },
+    'ux-301': {
+      name: 'User Experience',
+      shortCode: 'uxi'
+    }
+  }
+
   render() {
+    let dateString = DateTime.fromISO(this.state.startDate).toFormat('MM-dd-yy');
+    let slackChannel = `#${this.courseCodes[this.state.courseCode].shortCode}-${dateString}`
     return (
       <Container>
         <h2>YamlGenerator</h2>
@@ -123,18 +119,11 @@ class YamlGenerator extends React.Component {
               name="courseCode"
               className="form-control"
               onChange={this.onChange}
-              defaultValue="dev-301"
+              value={this.state.courseCode}
             >
-              <option value="dev-301">dev-301</option>
-              <option value="data-301">data-301</option>
-              <option value="data_analytics-301">data_analytics-301</option>
-              <option value="digital_marketing-301">
-                digital_marketing-301
-              </option>
-              <option value="project_marketing-301">
-                project_marketing-301
-              </option>
-              <option value="ux-301">ux-301</option>
+              {Object.keys(this.courseCodes).map((code) => (
+                <option value={code} key={code}>{code}</option>
+              ))}
             </select>
           </FormGroup>
           <FormGroup>
@@ -144,17 +133,7 @@ class YamlGenerator extends React.Component {
               name="cohortNum"
               id="cohortNum"
               onChange={this.onChange}
-              defaultValue="58"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="organization">Organization</Label>
-            <Input
-              type="text"
-              name="organization"
-              id="organization"
-              onChange={this.onChange}
-              defaultValue="falcon"
+              value={this.state.cohortNum}
             />
           </FormGroup>
           <FormGroup>
@@ -188,32 +167,19 @@ class YamlGenerator extends React.Component {
             />
           </FormGroup>
           {this.state.courseCode === 'dev-301' && (
-            <FormGroup>
-              <Label for="githubUrl">GitHub Repo URL (EI Only)</Label>
-              <Input
-                type="url"
-                name="githubUrl"
-                id="githubUrl"
-                onChange={this.onChange}
-                value={this.state.githubUrl}
-              />
-            </FormGroup>
+            <>
+              <FormGroup>
+                <Label for="githubUrl">GitHub Repo URL (EI Only)</Label>
+                <Input
+                  type="url"
+                  name="githubUrl"
+                  id="githubUrl"
+                  onChange={this.onChange}
+                  value={this.state.githubUrl}
+                />
+              </FormGroup>
+            </>
           )}
-          <FormGroup>
-            <Label for="timezone">Time Zone</Label>
-            <select
-              id="timezone"
-              name="timezone"
-              className="form-control"
-              onChange={this.onChange}
-              value={this.state.timeZone}
-            >
-              <option value="PST">PST</option>
-              <option value="MST">MST</option>
-              <option value="CST">CST</option>
-              <option value="EST">EST</option>
-            </select>
-          </FormGroup>
           <FormGroup>
             <Label for="breakWeeks">BreakWeeks</Label>
             <Row>
@@ -255,32 +221,12 @@ class YamlGenerator extends React.Component {
               }
             />
           </FormGroup>
-          <FormGroup>
-            <Label>Flags</Label>
-            <Row>
-              <Col md="4">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="rewriteInputPath"
-                    name="rewriteInputPath"
-                    onChange={this.onChange}
-                    value={this.state.rewriteInputPath}
-                  />
-                  <Label className="form-check-label" for="rewriteInputPath">
-                    rewriteInputPath
-                  </Label>
-                </div>
-              </Col>
-            </Row>
-          </FormGroup>
           <Button>Submit</Button>
         </Form>
 
         <Row>
           <Col>
-            <div className="yaml">
+            <div className="yaml segment">
               <div>courseCode: {this.state.courseCode}</div>
               <div>cohortNumber: {this.state.cohortNum}</div>
               <div>
@@ -305,122 +251,95 @@ class YamlGenerator extends React.Component {
               <div>breakWeeks:</div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;- {this.state.breakWeek1}</div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;- {this.state.breakWeek2}</div>
-
-              <div className="slackReminders">
-                <div>
-                  <strong># Slack /remind command for morning Workshop</strong>
-                </div>
-                <div>
-                  # /remind #ei-{this.state.startDate} "Morning workshop
-                  starting in 10 minutes - {this.state.workshopUrl}" at 9:50AM{" "}
-                  {this.state.timeZone} every weekday.
-                </div>
-                <div>
-                  <strong># Slack /remind command for Lunch</strong>
-                </div>
-                <div>
-                  # /remind #ei-{this.state.startDate} "Lunch Time!" at 12:45PM{" "}
-                  {this.state.timeZone} every weekday.
-                </div>
-                <div>
-                  <strong>
-                    # Slack /remind command for afternoon Workshop
-                  </strong>
-                </div>
-                <div>
-                  # /remind #ei-{this.state.startDate} "Afternoon session
-                  starting in 10 minutes - {this.state.workshopUrl}" at 1:20PM{" "}
-                  {this.state.timeZone} every weekday
-                </div>
-                <div>
-                  <strong># Slack /remind command for end of TA session</strong>
-                </div>
-                <div>
-                  # /remind #ei-{this.state.startDate} "TA support is available
-                  until 5 PM Eastern. Please submit tickets at least 15
-                  minutes before EOD" at 4:30PM {this.state.timeZone} every
-                  weekday
-                </div>
-                <div>
-                  <strong>
-                    # Slack /remind command for end of TA session for Support
-                    Channel
-                  </strong>
-                </div>
-                <div>
-                  # /remind #support-ei-cohort{this.state.cohortNum} "Support is
-                  finished for the day, but you can still get help from
-                  THINKCHAT using each checkpoint in your curriculum" at 5PM{" "}
-                  {this.state.timeZone} every weekday
-                </div>
-              </div>
-              <div className="welcome">
-                <p>Hello and welcome to Engineering Immersion!</p>
-                <p>
-                  I will be your instructor for the first 6 weeks of your
-                  program. The first week of your syllabus has now been posted,
-                  and you may find it by looking at your student dashboards.
-                  Please pay special attention to all items posted on Sunday's
-                  dashboard, including opening and reading the absence form
-                  which contains details of Thinkful's absence policy throughout
-                  your course. Also, please read through the document about
-                  working in teams: https://rebrand.ly/group-work-protocol . You
-                  can also find this and other helpful links in the "Hover here
-                  for helpful links!" section at the top of this slack channel.
-                </p>
-                <p>
-                  Please accept your invitations to join your cohort's Github
-                  Organization at https://github.com/thinkful-ei-
-                  {this.state.organization}. I will post coding examples here
-                  that we discuss in class. If you don't see your invite, it may
-                  be in your spam folder. You can also directly accept your
-                  invitation at https://github.com/thinkful-ei-
-                  {this.state.organization}. If you cannot locate your invite or
-                  are unable to join the organization - please respond to this
-                  message by sending me your Github handle.
-                </p>
-                <p>
-                  Also, please register for our course zoom session here:
-                  {this.state.workshopUrl} You need to register with your first
-                  name, last name and email address to be able to attend class.
-                  You only need to register once.
-                </p>
-                <p>I look forward to meeting you all on Monday!</p>
+            </div>
+            <div className="slackReminders segment">
+              <div>
+                <strong># Slack /remind command for morning Workshop</strong>
               </div>
               <div>
-                <strong>Note for TA Channel</strong>
-                <p>Good Afternoon @Teddy Mitchell @mike.stowe @casey @gwynndp !</p>
-                <p>
-                  Here is the link for the EI Cohort {this.state.cohortNum}{" "}
-                  workshop on Monday: {this.state.workshopUrl}
-                </p>
-                <p>
-                  Please join at the start of your shift at 11am EST and be
-                  prepared to introduce yourself to the students. During this
-                  workshop, students will create practice tickets. Instead of
-                  just closing these tickets, please take these tickets.
-                </p>
-                Steps
-                <ol>
-                  <li>Claim the ticket</li>
-                  <li>
-                    Claim all tickets for that team. If you claim a ticket for
-                    Team 1, claim all tickets for all members of Team 1.{" "}
-                  </li>
-                  <li>
-                    Go to the Discord Server and the team for the tickets.
-                  </li>
-                  <li>
-                    Ask each of the students to share their screen so that you
-                    know they are able to.
-                  </li>
-                  <li>
-                    Report in #ei-{this.state.startDate} channel any students
-                    who are having trouble sharing their screen.
-                  </li>
-                  <li>Close all tickets for the team</li>
-                </ol>
+                # /remind {slackChannel} "Morning workshop
+                starting in 10 minutes - {this.state.workshopUrl}" at 9:50AM{" "}
+                {this.state.timeZone} every weekday.
               </div>
+              <div>
+                <strong># Slack /remind command for Lunch</strong>
+              </div>
+              <div>
+                # /remind {slackChannel} "Lunch Time!" at 12:45PM{" "}
+                {this.state.timeZone} every weekday.
+              </div>
+              <div>
+                <strong>
+                  # Slack /remind command for afternoon Workshop
+                </strong>
+              </div>
+              <div>
+                # /remind {slackChannel} "Afternoon session
+                starting in 10 minutes - {this.state.workshopUrl}" at 1:20PM{" "}
+                {this.state.timeZone} every weekday
+              </div>
+              <div>
+                <strong># Slack /remind command before end of TA session</strong>
+              </div>
+              <div>
+                # /remind {slackChannel} "TA support is available
+                until 5 PM Eastern. Please submit tickets at least 15
+                minutes before EOD" at 4:30PM {this.state.timeZone} every
+                weekday
+              </div>
+              <div>
+                <strong>
+                  # Slack /remind command at end of TA session
+                </strong>
+              </div>
+              <div>
+                # /remind {slackChannel} "Support is
+                finished for the day, but you can still get help from
+                ThinkChat using each checkpoint in your curriculum" at 5PM{" "}
+                {this.state.timeZone} every weekday
+              </div>
+            </div>
+            <h3>Example welcome message to class</h3>
+            <div className="welcome segment">
+              <p>Hello and welcome to {this.courseCodes[this.state.courseCode].name} Immersion!</p>
+              <p>
+                I will be your instructor for the first 6 weeks of your
+                program. The first week of your syllabus has now been posted,
+                and you may find it by looking at your student dashboards.
+                Please pay special attention to all items posted on Sunday's
+                dashboard, including opening and reading the absence form
+                which contains details of Thinkful's absence policy throughout
+                your course. Also, please read through the document about
+                working in teams: https://rebrand.ly/group-work-protocol . You
+                can also find this and other helpful links in the "Hover here
+                for helpful links!" section at the top of this slack channel.
+              </p>
+              {this.state.courseCode === 'dev-301' && <p>
+                Throughout the course, when I write demo code during lecture,
+                that demo code will be posted at {this.state.githubUrl}. You
+                can bookmark that link now to be able to find reference code
+                throughout the course.
+              </p>}
+              <p>
+                Also, please register for our course BlueJeans video session
+                here: {this.state.workshopUrl} You need to register with your
+                first name, last name and email address to be able to attend
+                class. You only need to register once.
+              </p>
+              <p>I look forward to meeting you all on Monday!</p>
+            </div>
+            <h3>Note for TA Channel</h3>
+            <div className="segment">
+              <p>Good Afternoon @everyone !</p>
+              <p>
+                Here is the link for {this.courseCodes[this.state.courseCode].name} Immersion 
+                cohort {this.state.cohortNum} workshop on Monday: {this.state.workshopUrl}
+              </p>
+              <p>
+                Please join at the start of your shift at 11am EST and be
+                prepared to introduce yourself to the students. During this
+                workshop, students will create practice tickets.
+              </p>
             </div>
           </Col>
         </Row>
