@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/thinkful-instructor-tools/static/css/main.2de90f08.chunk.css",
-    "main.js": "/thinkful-instructor-tools/static/js/main.666f7dd8.chunk.js",
-    "main.js.map": "/thinkful-instructor-tools/static/js/main.666f7dd8.chunk.js.map",
+    "main.css": "/thinkful-instructor-tools/static/css/main.59bbe917.chunk.css",
+    "main.js": "/thinkful-instructor-tools/static/js/main.3a115d4f.chunk.js",
+    "main.js.map": "/thinkful-instructor-tools/static/js/main.3a115d4f.chunk.js.map",
     "runtime-main.js": "/thinkful-instructor-tools/static/js/runtime-main.84a842fe.js",
     "runtime-main.js.map": "/thinkful-instructor-tools/static/js/runtime-main.84a842fe.js.map",
     "static/css/2.6ccd7fa9.chunk.css": "/thinkful-instructor-tools/static/css/2.6ccd7fa9.chunk.css",
-    "static/js/2.695e8809.chunk.js": "/thinkful-instructor-tools/static/js/2.695e8809.chunk.js",
-    "static/js/2.695e8809.chunk.js.map": "/thinkful-instructor-tools/static/js/2.695e8809.chunk.js.map",
+    "static/js/2.3fe1aa63.chunk.js": "/thinkful-instructor-tools/static/js/2.3fe1aa63.chunk.js",
+    "static/js/2.3fe1aa63.chunk.js.map": "/thinkful-instructor-tools/static/js/2.3fe1aa63.chunk.js.map",
     "index.html": "/thinkful-instructor-tools/index.html",
-    "precache-manifest.aeeff450b1dc57177cda49adce66e613.js": "/thinkful-instructor-tools/precache-manifest.aeeff450b1dc57177cda49adce66e613.js",
+    "precache-manifest.52fd5ec319f3b77ae39f251e678e3d36.js": "/thinkful-instructor-tools/precache-manifest.52fd5ec319f3b77ae39f251e678e3d36.js",
     "service-worker.js": "/thinkful-instructor-tools/service-worker.js",
     "static/css/2.6ccd7fa9.chunk.css.map": "/thinkful-instructor-tools/static/css/2.6ccd7fa9.chunk.css.map",
-    "static/css/main.2de90f08.chunk.css.map": "/thinkful-instructor-tools/static/css/main.2de90f08.chunk.css.map",
-    "static/js/2.695e8809.chunk.js.LICENSE.txt": "/thinkful-instructor-tools/static/js/2.695e8809.chunk.js.LICENSE.txt",
+    "static/css/main.59bbe917.chunk.css.map": "/thinkful-instructor-tools/static/css/main.59bbe917.chunk.css.map",
+    "static/js/2.3fe1aa63.chunk.js.LICENSE.txt": "/thinkful-instructor-tools/static/js/2.3fe1aa63.chunk.js.LICENSE.txt",
     "static/media/avoid-example.png": "/thinkful-instructor-tools/static/media/avoid-example.171b1e45.png",
     "static/media/view_a_ruberic(admins).mp4": "/thinkful-instructor-tools/static/media/view_a_ruberic(admins).e21a7e92.mp4"
   },
   "entrypoints": [
     "static/js/runtime-main.84a842fe.js",
     "static/css/2.6ccd7fa9.chunk.css",
-    "static/js/2.695e8809.chunk.js",
-    "static/css/main.2de90f08.chunk.css",
-    "static/js/main.666f7dd8.chunk.js"
+    "static/js/2.3fe1aa63.chunk.js",
+    "static/css/main.59bbe917.chunk.css",
+    "static/js/main.3a115d4f.chunk.js"
   ]
 }
