@@ -24,7 +24,7 @@ class YamlGenerator extends React.Component {
     breakWeek2: 13,
     studentList: "",
     slackHandles: "",
-    githubUrl: "https://github.com/our-cool-cohort",
+    githubUrl: "https://github.com/our-cool-cohort"
   };
 
   componentWillUnmount() { }
@@ -55,17 +55,15 @@ class YamlGenerator extends React.Component {
       if (name.length === 1) {
         name = name[0].split(" ");
       }
-      if (name.length > 1) {
-        let firstName = name[0];
-        let lastName = name[1];
-        let lastInitial = lastName[0];
-        if (this.checkIfDups(firstName, nameList)) {
-          output[
-            i
-          ] = `  - name: ${firstName} ${lastName}\n     shortName: ${firstName}${lastInitial}\n`;
-        } else {
-          output[i] = `  - name: ${firstName} ${lastName}\n`;
-        }
+      let firstName = name[0];
+      let lastName = name[1] || ' ';
+      let lastInitial = lastName[0];
+      if (this.checkIfDups(firstName, nameList)) {
+        output[
+          i
+        ] = `  - name: ${firstName} ${lastName}\n     shortName: ${firstName}${lastInitial}\n`;
+      } else {
+        output[i] = `  - name: ${firstName} ${lastName}\n`;
       }
     }
     console.log(output);
@@ -73,7 +71,7 @@ class YamlGenerator extends React.Component {
     let [month, day, year] = date.toLocaleDateString("en-US").split("/");
     let formattedDate = `${month - 10 ? '0' + month : month}-${parseInt(day) + 1}-${year.substring(2)}`;
     console.log(formattedDate)
-    this.setState({ students: output, startDate: formattedDate });
+    this.setState({ students: output });
   };
 
   checkIfDups(firstName, list) {
@@ -332,7 +330,7 @@ class YamlGenerator extends React.Component {
             <div className="segment">
               <p>Good Afternoon @everyone !</p>
               <p>
-                Here is the link for {this.courseCodes[this.state.courseCode].name} Immersion 
+                Here is the link for {this.courseCodes[this.state.courseCode].name} Immersion
                 cohort {this.state.cohortNum} workshop on Monday: {this.state.workshopUrl}
               </p>
               <p>
