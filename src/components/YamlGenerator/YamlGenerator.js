@@ -240,7 +240,7 @@ class YamlGenerator extends React.Component {
                   <div>&nbsp;&nbsp;&nbsp;&nbsp;to: master-syllabus-groups</div>
                 </div>
               )*/}
-              <div>oddStudent: solo</div>
+              <div>oddStudent: pair</div>
               <div>startDate: {this.state.startDate}</div>
               <div>workshopUrl: {this.state.workshopUrl}</div>
               <div>discordServerUrl: {this.state.discordServerUrl}</div>
